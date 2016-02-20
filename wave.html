@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html >
+	<head>
+		<meta charset="UTF-8">
+		<script src="wavegen.js" type="text/javascript"></script>  
+		<script src="chart.js" type="text/javascript"></script>  
+	<style>
+	.bar {
+		fill: #633ab5;
+		transition: fill .1s ease;
+	}
+	.chart:hover,
+	.chart:focus {
+		.bar {
+			fill: #aaa;
+		}
+	}
+
+	.bar:hover,
+	.bar:focus {
+		fill: red !important;
+	}
+	#db {
+		position:absolute;
+		text-align:center;
+		width:40px;
+		height:40px;
+		/*display:inline-block;*/
+		vertical-align:middle;
+		background:#eee;
+		border: 1px solid #ddd;
+		border-radius: 3px;
+		font-family: arial;
+		box-shadow: 1px 2px 4px 1px rgba(0, 0, 0, 0.2);
+		line-height:40px;
+		display:none;
+	}
+
+	</style>
+
+		
+	<script>
+	window.onload = function(){
+
+		function new_chart(){
+			//clean all data before creating new one
+			g = document.getElementsByClassName('bar');
+			while(g.length > 0){
+				g[0].parentNode.removeChild(g[0]);
+			}
+			// create random data
+			var gen = new WaveGenerator(22, 150);
+			var wave = gen.next();
+
+			// create chart using data created
+			var chart = new Chart({
+				wave:wave,
+				svgId: 'ss'
+			});
+
+			bindMouseEvent();
+		}
+		new_chart();
+
+		// new chart button
+		var button = document.getElementsByTagName('button')[0];
+		button.addEventListener('click', function(){
+			new_chart();
+		}, false);
+
+		var tip = document.getElementById('db');
+
+		function bindMouseEvent(){
+			rects = document.querySelectorAll('.bar rect');
+			for (var i=0 ; i<rects.length; i++){
+				rects[i].addEventListener( 'mouseover', cb ,false);
+				rects[i].addEventListener( 'mouseout', bb, false );
+			}
+		}
+		    
+		function cb(e){
+			// console.log(this.getAttributeNS(null,'height'));
+			// console.log(e.pageX +' '+ e.pageY);
+			tip.style.display = 'inline-block';
+			tip.style.top = e.pageY+'px';
+			tip.style.left = ( 20 + parseInt(e.pageX) )+'px';
+			tip.innerHTML = Math.round(this.getAttributeNS(null,'height'));
+		}
+
+		function bb(e){
+			console.log('out');
+			tip.style.display= 'none';
+		}
+
+	};
+	</script>
+			
+	</head>
+	<body>
+		<svg id="ss" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="chart" width="1000" height="300" >
+			<g>
+				<rect x="0" y="200" width="1000" height="1" stroke="none" stroke-width="0" fill="#aaaaaa" />
+			</g>
+		</svg>
+		<span id="db" ></span>
+		<br>	
+		<button>New Wave</button>
+	</body>
+</html>
+
