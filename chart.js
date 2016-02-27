@@ -29,10 +29,10 @@
 
 	Chart.prototype.init = function() {
 		if (!this.options.wave) {
-			alert('please provide data, check documentation for more info');
+			throw new Error("please provide data, check documentation for more info");
 		}
 		else if (!this.options.svgId) {
-			alert('please provide data, , check documentation for more info');
+			throw new Error("please provide data, check documentation for more info");
 		}
 		else{ this.gen();}
 	};
