@@ -1,3 +1,6 @@
+## Demo
+
+`http://craigcosmo.github.io/chart`
 
 ## Wavegenerator API
 
