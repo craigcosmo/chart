@@ -1,12 +1,7 @@
-# StarSoft QA Programming Exercise
 
-The aim of this exercise is to write a small web application.
+## Wavegenerator API
 
-The application is a simple interactive wave visualisation, rendered using an SVG element.
-
-A script to generate the wave data has been provided in wavegen.js
-It can be used as follows:
-```javascript
+```js
 // Create the wave generator
 var gen = new WaveGenerator();
 // Generate a wave
@@ -15,17 +10,21 @@ var data = gen.next();
 var data2 = gen.next();
 ```
 
-## Tasks
- 1. Draw the wave data in an embedded SVG image.
- 2. Add a 'next' button which generates new wave data and updates the wave drawing.
- 3. Add a mouseover which displays the height of the wave at the mouse's x-position.
+## Chart API
 
+use together with wave api
 
-You are free to use any resources available online,
-including any open-source third-party libraries.
-
-When working though this exercise, take care to write quality code,
-as you would in an professional environment.
-
-The exercise should take around 1 hour, although more time may be used if needed.
-
+```js
+var chart = new Chart({
+        // this option take an array of data
+        wave: [],
+        // svgId is the id of the target svg, it takes string
+        svgId: chart_id
+        // columnWidth is the width of the column measure in px, default 30
+        columnWidth: 30
+        // columnMaxHeight is maximum height of the column measuared in px, default 200
+        columnMaxHeight: 200
+        // gap is the gap among column measured in px, default 40
+        gap: 40
+    });
+```
